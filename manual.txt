@@ -11,4 +11,17 @@ Para actualizar nuestro repositorio local ejecutaremos el siguiente comando:
 
 git pull
 
+una vez realizados los cambios ejecutamos el siguente comando para guarda y poner un comentario de los cambios realizados:
+
+git commit -a -m "Esto probando y realizando cambios desde linea de comandos"
+
+y por ultimo para subirlo al servidor remoto ejecutamos:
+
+git push
+
+Y eso es todo lo que he podido hacer hasta ahora, espero que sirva de ayuda.
+
+Saludos.
+
+
 
