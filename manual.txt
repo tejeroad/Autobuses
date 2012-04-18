@@ -1,0 +1,14 @@
+Hola compañeros.
+
+He estado probando como clonar el repositorio Autobuses y el comando sería el siguiente:
+
+git clone git@github.com:tejeroad/Autobuses.git
+
+Esto nos creara un directorio Autobuses que sera nuestro repositorio local.
+Aquí podemos agregar nuestro archivos y demás.
+
+Para actualizar nuestro repositorio local ejecutaremos el siguiente comando:
+
+git pull
+
+
