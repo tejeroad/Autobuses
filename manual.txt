@@ -11,6 +11,10 @@ Para actualizar nuestro repositorio local ejecutaremos el siguiente comando:
 
 git pull
 
+Cuando queramos crear un documento nuevo, antes tenemos que hacer un ADD:
+
+git add archivo.txt
+
 una vez realizados los cambios ejecutamos el siguente comando para guarda y poner un comentario de los cambios realizados:
 
 git commit -a -m "Esto probando y realizando cambios desde linea de comandos"
@@ -28,3 +32,5 @@ Estoy modificando esto para probarlo, que todo está correctamente.
 Que os parece si dejamos este manual aquí para cuando nos haga falta.
 Voy a intentar crear una Wiki y ahi podemos ir poniendo todos los apuntes ok??
 Un saludooo y esto va de lujo¡¡ jaja
+
+Edito: añado al manual el comando que me faltaba a mi.
