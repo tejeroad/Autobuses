@@ -43,7 +43,7 @@ Las fuentes donde podemos solicitar información son las siguiente:
 http://www.infobustussam.com:9001/services/dinamica.asmx?wsdl
 http://www.infobustussam.com:9001/services/estructura.asmx?wsdl
 
-Siendo especialmente importante ya que de esa podemos sacar todas las lines, paradas, nodos, vehiculos...etc
+Siendo especialmente importante la segunda ya que de esa podemos sacar todas las lines, paradas, nodos, vehiculos...etc
 Como podeis ver en el ejemplo de script "proyecto1.py" que acabo de subir.
 
 
