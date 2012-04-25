@@ -49,5 +49,5 @@ Como podeis ver en el ejemplo de script "proyecto1.py" que acabo de subir.
 
 Para que la respuesta del SOAP nos la muestre en bruto tenemos que escribir ésta linea,
 una vez que escribimos la linea:
-client.set_option(retxml=True)
+client.set_options(retxml=True)
 
