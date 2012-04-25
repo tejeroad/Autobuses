@@ -17,7 +17,7 @@ git add archivo.txt
 
 una vez realizados los cambios ejecutamos el siguente comando para guarda y poner un comentario de los cambios realizados:
 
-git commit -a -m "Esto probando y realizando cambios desde linea de comandos"
+git commit -a -m "Modificado"
 
 y por ultimo para subirlo al servidor remoto ejecutamos:
 
@@ -46,4 +46,8 @@ http://www.infobustussam.com:9001/services/estructura.asmx?wsdl
 Siendo especialmente importante la segunda ya que de esa podemos sacar todas las lines, paradas, nodos, vehiculos...etc
 Como podeis ver en el ejemplo de script "proyecto1.py" que acabo de subir.
 
+
+Para que la respuesta del SOAP nos la muestre en bruto tenemos que escribir ésta linea,
+una vez que escribimos la linea:
+client.set_option(retxml=True)
 
