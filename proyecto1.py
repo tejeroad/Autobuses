@@ -2,7 +2,7 @@ from suds.client import Client
 
 cliente = Client("http://www.infobustussam.com:9001/services/estructura.asmx?wsdl")
 
-asd = cliente.service.GetLineas()
+asd = cliente.service.GetRutasSublinea()
 index = open ("prueba.xml","w")
 index.write("%s" % asd)
 index.close()
