@@ -14,7 +14,7 @@ index.close()
 arbol = etree.parse("prueba.xml")
 raiz = arbol.getroot()
 
-paradas = arbol.xpath("//soap:Envelope/soap:Body/ns:GetLineasResponse/ns:GetLineasResult/ns:InfoLinea/ns:nombre")
+paradas = arbol.xpath("/soap:Envelope/soap:Body/ns:GetLineasResponse/ns:GetLineasResult/ns:InfoLinea/ns:nombre",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 
 for i in paradas:
     print i.text
