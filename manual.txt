@@ -51,3 +51,5 @@ Para que la respuesta del SOAP nos la muestre en bruto tenemos que escribir ést
 una vez que escribimos la linea:
 client.set_options(retxml=True)
 
+--Para usar formularios con python, instalamos el modulo de apache: 
+# aptitude install libapache2-mod-python
