@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;
+       charset=ISO-8859-1" />
+    <title>Test OpenStreetMap</title>
+
+    <style type="text/css">
+	h3 {
+            font: 100% 'Lucida Grande', Verdana, Arial, sans-serif;
+	    font-size: 110%;
+	    color: #003a6b;
+	    background-color: transparent;
+	    margin: 0; padding-top: 0.5em;
+	    margin-bottom: 0.5em;
+	    border-bottom: 1px solid #fcb100;
+	}
+	.cabecera {
+      	    position: absolute;
+      	    top: 10px; left: 10px;
+      	    background: #00a000; color:f0f0f0;
+      	    margin: 10px; padding: 10px;
+      	}
+      	.map {
+      	    position: absolute;
+      	    left: 10px;  top: 100px;
+            width: 640px; height: 400px;
+            border: solid 2px #a0a0a0;
+            background-color:#ffffff;
+            color: white;
+            padding: 3px 3px 3px 3px;
+      	}
+    </style>
+
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+
+    <script type="text/javascript">
+	var map, osmLayer, centerWGS84, centerOSM;
+	var projWGS84, projSphericalMercator
+
+	function init() {
+ 	    projWGS84 =
+                  new OpenLayers.Projection("EPSG:4326");
+	    projSphericalMercator =
+                  new OpenLayers.Projection("EPSG:900913");
+	    centerWGS84 =
+                  new OpenLayers.LonLat(-5.9136141123,37.1568171810437);
+            // transform from WGS 1984 to Spherical Mercator Projection;
+	    centerOSM =
+                  centerWGS84.transform(projWGS84, projSphericalMercator);
+
+            map = new OpenLayers.Map("mapa");
+            osmLayer = new OpenLayers.Layer.OSM();
+            map.addLayer(osmLayer);
+            map.setCenter(centerOSM, 5);
+	}
+	function mouseMoveHandler(e) {
+	var position = this.events.getMousePosition(e);
+	var lonlat = map.getLonLatFromPixel(position);
+	}
+    </script>
+
+</head>
+
+<body onload="init()">
+	<div class="cabecera" >
+		<h3>Prueba de acceso a OpenStreetMap</h3>
+	</div>
+	<div class="map" id="mapa" ></div>
+</body>
+</html>
