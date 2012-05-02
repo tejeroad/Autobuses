@@ -46,7 +46,7 @@
 	    projSphericalMercator =
                   new OpenLayers.Projection("EPSG:900913");
 	    centerWGS84 =
-                  new OpenLayers.LonLat(-5.9136141123,37.1568171810437);
+                  new OpenLayers.LonLat(-5.95510482788086,37.382698059082);
             // transform from WGS 1984 to Spherical Mercator Projection;
 	    centerOSM =
                   centerWGS84.transform(projWGS84, projSphericalMercator);
@@ -54,7 +54,7 @@
             map = new OpenLayers.Map("mapa");
             osmLayer = new OpenLayers.Layer.OSM();
             map.addLayer(osmLayer);
-            map.setCenter(centerOSM, 5);
+            map.setCenter(centerOSM, 12);
 	}
 	function mouseMoveHandler(e) {
 	var position = this.events.getMousePosition(e);
