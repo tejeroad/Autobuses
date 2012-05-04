@@ -31,12 +31,12 @@ meta = etree.SubElement(head,"meta", attrib={"http-equiv":"Content-Type", "conte
 body = etree.SubElement(html,"body")
 form = etree.SubElement(body,"form", attrib={"action":"", "method":"post"})
 select = etree.SubElement(body,"select", attrib={"name":"paradas"})
-    
-for label in codigo:
-    option = etree.SubElement(select,"option", attrib={"value":"%s" % label})
 
 for lineas in paradas:
-    option.text = lineas
+    option2 = etree.SubElement(select,"option").text = "%s" % lineas
+
+for label in codigo:
+    option = etree.SubElement(select,"option", attrib={"value":"%s" % label})
     
 salida = open("formularioParadas.html","w")
 salida.write(etree.tostring(arbol2,pretty_print=True))
