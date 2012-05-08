@@ -1,26 +1,26 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
+
 from lxml import etree
 from suds.client import Client
+import cgi
+import cgitb
+cgitb.enable()
 
 cliente = Client("http://www.infobustussam.com:9001/services/estructura.asmx?wsdl")
 cliente.set_options(retxml=True)
 
 asd = cliente.service.GetLineas()
 
-index = open ("prueba.xml","w")
+index = open ("/tmp/prueba.xml","w")
 index.write(asd)
 index.close()
 
-arbol = etree.parse("prueba.xml")
+arbol = etree.parse("/tmp/prueba.xml")
 raiz = arbol.getroot()
 
-paradas = arbol.xpath("/soap:Envelope/soap:Body/ns:GetLineasResponse/ns:GetLineasResult/ns:InfoLinea/ns:nombre/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
-codigo = arbol.xpath("/soap:Envelope/soap:Body/ns:GetLineasResponse/ns:GetLineasResult/ns:InfoLinea/ns:label/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
-
-#!/usr/bin/python
-import cgi
-import cgitb
-cgitb.enable()
+lineas_nombre = arbol.xpath("/soap:Envelope/soap:Body/ns:GetLineasResponse/ns:GetLineasResult/ns:InfoLinea/ns:nombre/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
+lineas_value = arbol.xpath("/soap:Envelope/soap:Body/ns:GetLineasResponse/ns:GetLineasResult/ns:InfoLinea/ns:label/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 
 html = etree.Element("html",attrib={"xmlns":"http://www.w3.org/1999/xhtml"})
 arbol2 = etree.ElementTree(html)
@@ -29,15 +29,19 @@ title = etree.SubElement(head,"title")
 title.text = "Formulario Tussam"
 meta = etree.SubElement(head,"meta", attrib={"http-equiv":"Content-Type", "content":"text/html", "charset":"utf-8"})
 body = etree.SubElement(html,"body")
-form = etree.SubElement(body,"form", attrib={"action":"", "method":"post"})
+form = etree.SubElement(body,"form", attrib={"action":"formulario_final.py", "method":"post"})
 select = etree.SubElement(body,"select", attrib={"name":"paradas"})
 
-for lineas in paradas:
-    option2 = etree.SubElement(select,"option").text = "%s" % lineas
-    option2.attrib["value"] = "asd"
+for cont in xrange(len(lineas_nombre)):
+    option2 = etree.SubElement(select,"option",attrib={"value":"%s" % lineas_value[cont]}).text = "%s" % lineas_nombre[cont]
 
-for label in codigo:
-    option = etree.SubElement(select,"option", attrib={"value":"%s" % label})
+enviar = etree.SubElement(body,"input", attrib={"type":"submit","value":"Enviar"})
     
-salida = open("formularioParadas.html","w")
-salida.write(etree.tostring(arbol2,pretty_print=True))
+#salida = open("formularioParadas.html","w")
+#salida.write(etree.tostring(arbol2,pretty_print=True))
+
+print "Content-Type: text/html"     # HTML is following
+print                               # blank line, end of headers
+print etree.tostring(arbol2,pretty_print=True)
+
+####Formulario.py y formulario_final.py hay que meterlo dentro de /usr/lib/cgi-bin/
