@@ -56,29 +56,13 @@ client.set_options(retxml=True)
 1) instalamos el modulo:
 	# aptitude install libapache2-mod-python
 
-2) Editamos el fichero default de apache2:
-	# nano /etc/apache2/sites-available/default
-
-        <Directory "/usr/lib/cgi-bin/">
-                AllowOverride None
-                Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
-                Order allow,deny
-                Allow from all
-###########################################
-######Insertamos estas 3 linas ############
-###########################################
-                AddHandler mod_python .py
-                PythonHandler mod_python.publisher
-                PythonDebug On
-        </Directory>
-
-3) Damos permisos 755 al directorio cgi-bin donde insertaremos nuestros programas .py
+2) Damos permisos 755 al directorio cgi-bin donde insertaremos nuestros programas .py
 	# chmod 755 /usr/lib/cgi-bin/*
 
 4) Reiniciamos el servicio:
 	# /etc/init.d/apache2 restart
 
-5) Para comprovar que funciona correctamente, podeis crear un fichero.py con un print en /usr/lib/cgi-bin/
-   y desde el navegador accedeis con la siguiente direccion:
+5) En el directorio /usr/lib/cgi-bin/ será donde metamos los fichero.py y para ejecutarlo,
+   desde el navegador accedeis con la siguiente direccion:
 
-	http://localhost/cgi-bin/prueba.py
+	http://localhost/cgi-bin/fichero.py
