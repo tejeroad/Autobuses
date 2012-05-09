@@ -14,8 +14,8 @@ index.close()
 arbol = etree.parse("prueba.xml")
 raiz = arbol.getroot()
 
-paradas = arbol.xpath("/soap:Envelope/soap:Body/ns:GetLineasResponse/ns:GetLineasResult/ns:InfoLinea/ns:nombre/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
-codigo = arbol.xpath("/soap:Envelope/soap:Body/ns:GetLineasResponse/ns:GetLineasResult/ns:InfoLinea/ns:label/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
+lineas_nombre = arbol.xpath("/soap:Envelope/soap:Body/ns:GetLineasResponse/ns:GetLineasResult/ns:InfoLinea/ns:nombre/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
+lineas_value = arbol.xpath("/soap:Envelope/soap:Body/ns:GetLineasResponse/ns:GetLineasResult/ns:InfoLinea/ns:label/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 
 #!/usr/bin/python
 import cgi
@@ -32,9 +32,9 @@ body = etree.SubElement(html,"body")
 form = etree.SubElement(body,"form", attrib={"action":"", "method":"post"})
 select = etree.SubElement(body,"select", attrib={"name":"paradas"})
    
-for lineas in paradas:
-    for label in codigo:
-        option2 = etree.SubElement(select,"option",attrib={"value":"%s" % label}).text = "%s" % lineas
-    
+for cont in xrange(len(lineas_nombre)):
+    option = etree.SubElement(select,"option", attrib={"value":"%s" % lineas_value[cont]}).text = "%s" % lineas_nombre[cont]
+
+
 salida = open("formularioParadas.html","w")
 salida.write(etree.tostring(arbol2,pretty_print=True))
