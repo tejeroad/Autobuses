@@ -9,14 +9,6 @@ cgitb.enable()
 
 form = cgi.FieldStorage()
 
-print "Content-Type: text/html"     # HTML is following
-print                               # blank line, end of headers
-if "paradas" not in form:
-    print "<H1>Error</H1>"
-    print "Debes elegir una parada"
-else:
-    print "<p>Parada:", form["paradas"].value
-
 cliente = Client("http://www.infobustussam.com:9001/services/estructura.asmx?wsdl")
 cliente.set_options(retxml=True)
 
@@ -38,13 +30,20 @@ title = etree.SubElement(head,"title")
 title.text = "Formulario Tussam"
 meta = etree.SubElement(head,"meta", attrib={"http-equiv":"Content-Type", "content":"text/html", "charset":"utf-8"})
 body = etree.SubElement(html,"body")
+p = etree.SubElement(body,"p")
 form = etree.SubElement(body,"form", attrib={"action":"", "method":"post"})
 select = etree.SubElement(body,"select", attrib={"name":"paradas"})
 
 for linea in paradas:
-    option = etree.SubElement(select,"option").text = "%s" % linea
+	p.text = "Elige una parada: "
+    	option = etree.SubElement(select,"option").text = "%s" % linea
 
 salida = open("paradas.html","w")
 salida.write(etree.tostring(arbol2,pretty_print=True))
 
 enviar = etree.SubElement(body,"input", attrib={"type":"submit","value":"Enviar"})
+
+print "Content-Type: text/html"     # HTML is following
+print                               # blank line, end of headers
+print etree.tostring(arbol2,pretty_print=True)
+

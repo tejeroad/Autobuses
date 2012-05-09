@@ -29,11 +29,13 @@ title = etree.SubElement(head,"title")
 title.text = "Formulario Tussam"
 meta = etree.SubElement(head,"meta", attrib={"http-equiv":"Content-Type", "content":"text/html", "charset":"utf-8"})
 body = etree.SubElement(html,"body")
+p = etree.SubElement(body,"p")
 form = etree.SubElement(body,"form", attrib={"action":"formulario_final.py", "method":"post"})
 select = etree.SubElement(body,"select", attrib={"name":"paradas"})
 
 for cont in xrange(len(lineas_nombre)):
-    option2 = etree.SubElement(select,"option",attrib={"value":"%s" % lineas_value[cont]}).text = "%s" % lineas_nombre[cont]
+    p.text = "Elige una Linea: "
+    option2 = etree.SubElement(select,"option",attrib={"value":"%s" % lineas_value[cont]}).text = lineas_value[cont] + " - " + '%s' % lineas_nombre[cont]
 
 enviar = etree.SubElement(body,"input", attrib={"type":"submit","value":"Enviar"})
     
