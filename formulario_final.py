@@ -23,6 +23,8 @@ raiz = arbol.getroot()
 
 paradas = arbol.xpath("//soap:Envelope/soap:Body/ns:GetRutasSublineaResponse/ns:GetRutasSublineaResult/ns:InfoRuta/ns:secciones/ns:InfoSeccion/ns:nodos/ns:InfoNodoSeccion/ns:nombre/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 
+nodos = arbol.xpath("//soap:Envelope/soap:Body/ns:GetRutasSublineaResponse/ns:GetRutasSublineaResult/ns:InfoRuta/ns:secciones/ns:InfoSeccion/ns:nodos/ns:InfoNodoSeccion/ns:nodo/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
+
 html = etree.Element("html",attrib={"xmlns":"http://www.w3.org/1999/xhtml"})
 arbol2 = etree.ElementTree(html)
 head = etree.SubElement(html,"head")
@@ -34,9 +36,9 @@ p = etree.SubElement(body,"p")
 form = etree.SubElement(body,"form", attrib={"action":"", "method":"post"})
 select = etree.SubElement(body,"select", attrib={"name":"paradas"})
 
-for linea in paradas:
+for cont in xrange(len(paradas)):
 	p.text = "Elige una parada: "
-    	option = etree.SubElement(select,"option").text = "%s" % linea
+    	option = etree.SubElement(select,"option").text = nodos[cont] + "-" + "%s" % linea[cont]
 
 salida = open("paradas.html","w")
 salida.write(etree.tostring(arbol2,pretty_print=True))
