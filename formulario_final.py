@@ -38,7 +38,7 @@ select = etree.SubElement(body,"select", attrib={"name":"paradas"})
 
 for cont in xrange(len(paradas)):
 	p.text = "Elige una parada: "
-    	option = etree.SubElement(select,"option").text = nodos[cont] + "-" + "%s" % linea[cont]
+    	option = etree.SubElement(select,"option").text = nodos[cont] + " " + "-" + " " + "%s" % paradas[cont]
 
 salida = open("paradas.html","w")
 salida.write(etree.tostring(arbol2,pretty_print=True))
