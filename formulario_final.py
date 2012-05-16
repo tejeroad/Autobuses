@@ -33,7 +33,7 @@ title.text = "Formulario Tussam"
 meta = etree.SubElement(head,"meta", attrib={"http-equiv":"Content-Type", "content":"text/html", "charset":"utf-8"})
 body = etree.SubElement(html,"body")
 p = etree.SubElement(body,"p")
-form = etree.SubElement(body,"form", attrib={"action":"info.py", "method":"post"})
+form = etree.SubElement(body,"form", attrib={"action":"infor2.py", "method":"post"})
 select = etree.SubElement(body,"select", attrib={"name":"paradas2"})
 
 for cont in xrange(len(paradas)):
