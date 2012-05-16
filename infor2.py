@@ -8,7 +8,7 @@ import cgitb
 cgitb.enable()
 
 form = cgi.FieldStorage()
-
+##
 cliente = Client("http://www.infobustussam.com:9001/services/dinamica.asmx?wsdl")
 cliente.set_options(retxml=True)
 
