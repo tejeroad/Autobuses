@@ -12,11 +12,11 @@ cliente.set_options(retxml=True)
 
 asd = cliente.service.GetLineas()
 
-index = open ("prueba.xml","w")
+index = open ("/tmp/prueba.xml","w")
 index.write(asd)
 index.close()
 
-arbol = etree.parse("prueba.xml")
+arbol = etree.parse("/tmp/prueba.xml")
 raiz = arbol.getroot()
 
 lineas_nombre = arbol.xpath("/soap:Envelope/soap:Body/ns:GetLineasResponse/ns:GetLineasResult/ns:InfoLinea/ns:nombre/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})

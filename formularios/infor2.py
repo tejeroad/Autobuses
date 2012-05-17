@@ -8,11 +8,11 @@ import cgitb
 cgitb.enable()
 
 form = cgi.FieldStorage()
-##
+
 cliente = Client("http://www.infobustussam.com:9001/services/dinamica.asmx?wsdl")
 cliente.set_options(retxml=True)
 
-asd2 = cliente.service.GetPasoParada("01","%s" % form["paradas2"].value,1)
+asd2 = cliente.service.GetPasoParada("%s" % form["valor1"].value,"%s" % form["paradas2"].value,1)
 
 index = open ("/tmp/infor.xml","w")
 index.write(asd2)
