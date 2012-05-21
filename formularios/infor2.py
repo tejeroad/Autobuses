@@ -42,10 +42,13 @@ p = etree.SubElement(body,"p").text = "minutos: " + "%s" % minutos2
 p = etree.SubElement(body,"p").text = "distancia: " + "%s" % metros2
 
 
-
-#salida = open("paradas.html","w")
+salida = open("/tmp/tabulado.txt","w")
 #salida.write(etree.tostring(arbol2,pretty_print=True))
-
+salida.write("%s\t" % minutos)
+salida.write("%s\t" % metros)
+salida.write("%s\t" % minutos2)
+salida.write("%s" % metros2)
+salida.close()
 
 print "Content-Type: text/html"     # HTML is following
 print                               # blank line, end of headers

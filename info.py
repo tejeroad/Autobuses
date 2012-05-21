@@ -15,7 +15,7 @@ asd = cliente.service.GetPasoParada("01","%s" % form["paradas2"].value,1)
 
 
 index = open ("asd3.xml","w")
-index.write(asd)
+index.write(asd3.xml)
 index.close()
 
 arbol = etree.parse("asd3.xml")
