@@ -5,6 +5,7 @@ from lxml import etree
 from suds.client import Client
 import cgi
 import cgitb
+import pyproj
 cgitb.enable()
 
 form = cgi.FieldStorage()
@@ -26,6 +27,12 @@ metros = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPa
 minutos2 = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPasoParadaResult/ns:PasoParada/ns:e2/ns:minutos/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 metros2 = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPasoParadaResult/ns:PasoParada/ns:e2/ns:metros/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 
+x=
+y=
+p1 = pyproj.Proj(init='epsg:26915')
+p2 = pyproj.Proj(init='epsg:26715')
+x1, y1 = p1(x,y)
+longitud, latitud = pyproj.transform(p1,p2,x1,y1)
 
 html = etree.Element("html",attrib={"xmlns":"http://www.w3.org/1999/xhtml"})
 arbol2 = etree.ElementTree(html)
@@ -44,6 +51,8 @@ p = etree.SubElement(body,"p").text = "distancia: " + "%s" % metros2
 
 salida = open("/tmp/tabulado.txt","w")
 #salida.write(etree.tostring(arbol2,pretty_print=True))
+salida.write("%s\t" % longitud)
+salida.write("%s\t" % latitud)
 salida.write("%s\t" % minutos)
 salida.write("%s\t" % metros)
 salida.write("%s\t" % minutos2)
