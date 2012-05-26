@@ -5,7 +5,7 @@ from lxml import etree
 from suds.client import Client
 import cgi
 import cgitb
-import pyproj
+from pyproj import Proj
 cgitb.enable()
 
 form = cgi.FieldStorage()
@@ -29,10 +29,10 @@ metros2 = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetP
 
 x=-92.199881
 y=38.56694
-p1 = pyproj.Proj(init='epsg:26915')
-p2 = pyproj.Proj(init='epsg:26715')
-x1, y1 = p1(x,y)
-longitud, latitud = pyproj.transform(p1,p2,x1,y1)
+p = Proj(proj='utm',zone=30,ellps='WGS84')
+lat,long = (x,y,inverse=True)
+
+
 
 html = etree.Element("html",attrib={"xmlns":"http://www.w3.org/1999/xhtml"})
 arbol2 = etree.ElementTree(html)
