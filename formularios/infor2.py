@@ -5,27 +5,43 @@ from lxml import etree
 from suds.client import Client
 import cgi
 import cgitb
+<<<<<<< HEAD
 from pyproj import Proj
+=======
+>>>>>>> 26141dfb0214c8523f5c9d25ebe3892636f8ce19
 cgitb.enable()
 
 form = cgi.FieldStorage()
 
+paradas2=form["paradas2"].value.split(",")
+#paradas2[0] el codigo de parada
+#paradas2[1] el orden
+
 cliente = Client("http://www.infobustussam.com:9001/services/dinamica.asmx?wsdl")
+cliente2 = Client("http://www.infobustussam.com:9001/services/estructura.asmx?wsdl")
 cliente.set_options(retxml=True)
+cliente2.set_options(retxml=True)
 
-asd2 = cliente.service.GetPasoParada("%s" % form["valor1"].value,"%s" % form["paradas2"].value,1)
+asd2 = cliente.service.GetPasoParada("%s" % form["valor1"].value,"%s" % paradas2[0],1)
+peticion = cliente2.service.GetTopoSublinea("%s" % form["valor1"].value,1)
 
-index = open ("/tmp/infor.xml","w")
+index = open("/tmp/infor.xml","w")
 index.write(asd2)
 index.close()
-
 arbol = etree.parse("/tmp/infor.xml")
 raiz = arbol.getroot()
+
+index2 = open("/tmp/infor2.xml","w")
+index2.write(peticion)
+index2.close()
+arbol3 = etree.parse("/tmp/infor2.xml")
+raiz2 = arbol3.getroot()
 
 minutos = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPasoParadaResult/ns:PasoParada/ns:e1/ns:minutos/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 metros = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPasoParadaResult/ns:PasoParada/ns:e1/ns:metros/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 minutos2 = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPasoParadaResult/ns:PasoParada/ns:e2/ns:minutos/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 metros2 = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPasoParadaResult/ns:PasoParada/ns:e2/ns:metros/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
+<<<<<<< HEAD
 
 x=-92.199881
 y=38.56694
@@ -33,6 +49,10 @@ p = Proj(proj='utm',zone=30,ellps='WGS84')
 lat,long = (x,y,inverse=True)
 
 
+=======
+x = arbol3.xpath("/soap:Envelope/soap:Body/ns:GetTopoSublineaResponse/ns:GetTopoSublineaResult/ns:InfoCoord[%s]/ns:x/text()" % paradas2[1],namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
+y = arbol3.xpath("/soap:Envelope/soap:Body/ns:GetTopoSublineaResponse/ns:GetTopoSublineaResult/ns:InfoCoord[%s]/ns:y/text()" % paradas2[1],namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
+>>>>>>> 26141dfb0214c8523f5c9d25ebe3892636f8ce19
 
 html = etree.Element("html",attrib={"xmlns":"http://www.w3.org/1999/xhtml"})
 arbol2 = etree.ElementTree(html)
@@ -49,10 +69,9 @@ p = etree.SubElement(body,"p").text = "minutos: " + "%s" % minutos2
 p = etree.SubElement(body,"p").text = "distancia: " + "%s" % metros2
 
 
+
 salida = open("/tmp/tabulado.txt","w")
 #salida.write(etree.tostring(arbol2,pretty_print=True))
-salida.write("%s\t" % longitud)
-salida.write("%s\t" % latitud)
 salida.write("%s\t" % minutos)
 salida.write("%s\t" % metros)
 salida.write("%s\t" % minutos2)
@@ -62,4 +81,12 @@ salida.close()
 print "Content-Type: text/html"     # HTML is following
 print                               # blank line, end of headers
 print etree.tostring(arbol2,pretty_print=True)
+print "x: " + "%s" % x
+print "y: " + "%s" % y
 
+#x=-92.199881
+#y=38.56694
+#p1 = pyproj.Proj(init='epsg:26915')
+#p2 = pyproj.Proj(init='epsg:26715')
+#x1, y1 = p1(x,y)
+#longitud, latitud = pyproj.transform(p1,p2,x1,y1)

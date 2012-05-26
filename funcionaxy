@@ -1,0 +1,10 @@
+from pyproj import Proj
+p = Proj(proj='utm',zone=30,ellps='WGS84')
+x=234987.68749944706
+y=4144042.0002550837
+print' %8.3f %5.3f' % p(x,y,inverse=True)
+   -5.994 37.405
+
+
+
+print p(x,y,inverse=True)
