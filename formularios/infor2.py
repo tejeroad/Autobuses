@@ -58,7 +58,6 @@ p = etree.SubElement(body,"p").text = "distancia: " + "%s" % metros2
 
 
 salida = open("/tmp/tabulado.txt","w")
-#salida.write(etree.tostring(arbol2,pretty_print=True))
 salida.write("%s\t" % minutos)
 salida.write("%s\t" % metros)
 salida.write("%s\t" % minutos2)
