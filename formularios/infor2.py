@@ -5,12 +5,9 @@ from lxml import etree
 from suds.client import Client
 import cgi
 import cgitb
-<<<<<<< HEAD
 from pyproj import Proj
-=======
->>>>>>> 26141dfb0214c8523f5c9d25ebe3892636f8ce19
-cgitb.enable()
 
+cgitb.enable()
 form = cgi.FieldStorage()
 
 paradas2=form["paradas2"].value.split(",")
@@ -41,18 +38,9 @@ minutos = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetP
 metros = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPasoParadaResult/ns:PasoParada/ns:e1/ns:metros/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 minutos2 = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPasoParadaResult/ns:PasoParada/ns:e2/ns:minutos/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 metros2 = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPasoParadaResult/ns:PasoParada/ns:e2/ns:metros/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
-<<<<<<< HEAD
 
-x=-92.199881
-y=38.56694
-p = Proj(proj='utm',zone=30,ellps='WGS84')
-lat,long = (x,y,inverse=True)
-
-
-=======
 x = arbol3.xpath("/soap:Envelope/soap:Body/ns:GetTopoSublineaResponse/ns:GetTopoSublineaResult/ns:InfoCoord[%s]/ns:x/text()" % paradas2[1],namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 y = arbol3.xpath("/soap:Envelope/soap:Body/ns:GetTopoSublineaResponse/ns:GetTopoSublineaResult/ns:InfoCoord[%s]/ns:y/text()" % paradas2[1],namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
->>>>>>> 26141dfb0214c8523f5c9d25ebe3892636f8ce19
 
 html = etree.Element("html",attrib={"xmlns":"http://www.w3.org/1999/xhtml"})
 arbol2 = etree.ElementTree(html)
@@ -67,7 +55,6 @@ p = etree.SubElement(body,"p").text = "distancia: " + "%s" % metros
 p = etree.SubElement(body,"h1").text = "Segundo Autobus"
 p = etree.SubElement(body,"p").text = "minutos: " + "%s" % minutos2
 p = etree.SubElement(body,"p").text = "distancia: " + "%s" % metros2
-
 
 
 salida = open("/tmp/tabulado.txt","w")

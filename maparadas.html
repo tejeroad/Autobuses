@@ -7,7 +7,7 @@
     map.addLayer(new OpenLayers.Layer.OSM());
  
     var publicos = new OpenLayers.Layer.Text( "Paradas",
-                    { location:"paradas.txt",
+                    { location:"./paradas.txt",
                       projection: map.displayProjection
                     });
     map.addLayer(publicos);
