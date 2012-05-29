@@ -21,6 +21,7 @@ cliente2.set_options(retxml=True)
 
 asd2 = cliente.service.GetPasoParada("%s" % form["valor1"].value,"%s" % paradas2[0],1)
 peticion = cliente2.service.GetPolylineaSublinea("%s" % form["valor1"].value,1)
+#Metodo GetPolylineaSublinea devuelve las coordenadas de la sublinea
 
 index = open("/tmp/infor.xml","w")
 index.write(asd2)
