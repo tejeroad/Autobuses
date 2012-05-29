@@ -20,7 +20,7 @@ cliente.set_options(retxml=True)
 cliente2.set_options(retxml=True)
 
 asd2 = cliente.service.GetPasoParada("%s" % form["valor1"].value,"%s" % paradas2[0],1)
-peticion = cliente2.service.GetTopoSublinea("%s" % form["valor1"].value,1)
+peticion = cliente2.service.GetPolylineaSublinea("%s" % form["valor1"].value,1)
 
 index = open("/tmp/infor.xml","w")
 index.write(asd2)
@@ -39,8 +39,8 @@ metros = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPa
 minutos2 = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPasoParadaResult/ns:PasoParada/ns:e2/ns:minutos/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 metros2 = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPasoParadaResult/ns:PasoParada/ns:e2/ns:metros/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 
-x = arbol3.xpath("/soap:Envelope/soap:Body/ns:GetTopoSublineaResponse/ns:GetTopoSublineaResult/ns:InfoCoord[%s]/ns:x/text()" % paradas2[1],namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
-y = arbol3.xpath("/soap:Envelope/soap:Body/ns:GetTopoSublineaResponse/ns:GetTopoSublineaResult/ns:InfoCoord[%s]/ns:y/text()" % paradas2[1],namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
+x = arbol3.xpath("/soap:Envelope/soap:Body/ns:GetPolylineaSublineaResponse/ns:GetPolylineaSublineaResult/ns:InfoCoord[%s]/ns:x/text()" % paradas2[1],namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
+y = arbol3.xpath("/soap:Envelope/soap:Body/ns:GetPolylineaSublineaResponse/ns:GetPolylineaSublineaResult/ns:InfoCoord[%s]/ns:y/text()" % paradas2[1],namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 
 html = etree.Element("html",attrib={"xmlns":"http://www.w3.org/1999/xhtml"})
 arbol2 = etree.ElementTree(html)
