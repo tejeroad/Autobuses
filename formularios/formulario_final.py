@@ -36,12 +36,9 @@ p = etree.SubElement(body,"p")
 form2 = etree.SubElement(body,"form", attrib={"action":"infor2.py", "method":"post"})
 select = etree.SubElement(form2,"select", attrib={"name":"paradas2"})
 valor = etree.SubElement(form2,"input",attrib={"type":"hidden","name":"valor1","value":"%s" % form["paradas"].value})
-cont_paradas = 1
 for cont in xrange(len(paradas)):
 	p.text = "Elige una parada: "
-    	option = etree.SubElement(select,"option",attrib={"value":"%s,%d" % (nodos[cont],cont_paradas)}).text = nodos[cont] + " - " + "%s" % paradas[cont]
-	cont_paradas = cont_paradas + 1
-#salida = open("/tmp/paradas.html","w")
+    	option = etree.SubElement(select,"option",attrib={"value":"%s" % nodos[cont]}).text = nodos[cont] + " - " + "%s" % paradas[cont]
 #salida.write(etree.tostring(arbol2,pretty_print=True))
 
 enviar = etree.SubElement(form2,"input", attrib={"type":"submit","value":"Enviar"})

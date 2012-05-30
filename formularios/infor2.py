@@ -10,18 +10,15 @@ from pyproj import Proj
 cgitb.enable()
 form = cgi.FieldStorage()
 
-paradas2=form["paradas2"].value.split(",")
-#paradas2[0] el codigo de parada
-#paradas2[1] el orden
+paradas2=form["paradas2"].value
 
 cliente = Client("http://www.infobustussam.com:9001/services/dinamica.asmx?wsdl")
 cliente2 = Client("http://www.infobustussam.com:9001/services/estructura.asmx?wsdl")
 cliente.set_options(retxml=True)
 cliente2.set_options(retxml=True)
 
-asd2 = cliente.service.GetPasoParada("%s" % form["valor1"].value,"%s" % paradas2[0],1)
-peticion = cliente2.service.GetPolylineaSublinea("%s" % form["valor1"].value,1)
-#Metodo GetPolylineaSublinea devuelve las coordenadas de la sublinea
+asd2 = cliente.service.GetPasoParada("%s" % form["valor1"].value,"%s" % paradas2,1)
+peticion = cliente2.service.GetTopoSublinea("%s" % form["valor1"].value,1)
 
 index = open("/tmp/infor.xml","w")
 index.write(asd2)
@@ -40,8 +37,16 @@ metros = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPa
 minutos2 = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPasoParadaResult/ns:PasoParada/ns:e2/ns:minutos/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 metros2 = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetPasoParadaResult/ns:PasoParada/ns:e2/ns:metros/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 
-x = arbol3.xpath("/soap:Envelope/soap:Body/ns:GetPolylineaSublineaResponse/ns:GetPolylineaSublineaResult/ns:InfoCoord[%s]/ns:x/text()" % paradas2[1],namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
-y = arbol3.xpath("/soap:Envelope/soap:Body/ns:GetPolylineaSublineaResponse/ns:GetPolylineaSublineaResult/ns:InfoCoord[%s]/ns:y/text()" % paradas2[1],namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
+xs= arbol3.xpath("/soap:Envelope/soap:Body/ns:GetTopoSublineaResponse/ns:GetTopoSublineaResult/ns:InfoCoord/ns:x/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
+ys = arbol3.xpath("/soap:Envelope/soap:Body/ns:GetTopoSublineaResponse/ns:GetTopoSublineaResult/ns:InfoCoord/ns:y/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
+#xs = xs[0]
+#ys = ys[0]
+xss=[]
+for x in xs:
+    xss.append(float(x))
+yss=[]
+for y in ys:
+    yss.append(float(y))
 
 html = etree.Element("html",attrib={"xmlns":"http://www.w3.org/1999/xhtml"})
 arbol2 = etree.ElementTree(html)
@@ -56,24 +61,25 @@ p = etree.SubElement(body,"p").text = "distancia: " + "%s" % metros
 p = etree.SubElement(body,"h1").text = "Segundo Autobus"
 p = etree.SubElement(body,"p").text = "minutos: " + "%s" % minutos2
 p = etree.SubElement(body,"p").text = "distancia: " + "%s" % metros2
+p = Proj(proj='utm',zone=30,ellps='WGS84')
+form = etree.SubElement(body,"form", attrib={"action":"maparadas.html", "method":"post"})
 
+valorx,valory = p(xss,yss,inverse=True)
 
-salida = open("/tmp/tabulado.txt","w")
-salida.write("%s\t" % minutos)
-salida.write("%s\t" % metros)
-salida.write("%s\t" % minutos2)
-salida.write("%s" % metros2)
+salida = open("/usr/lib/cgi-bin/paradas.txt","w")
+salida.write("lat\tlon\ttitle\tdescription\ticonSize\tincoOffset\ticon\n")
+for cont in xrange(len(valorx)):
+    salida.write("%s\t" % valory[cont]) 
+    salida.write("%s\t" % valorx[cont])
+    salida.write("Prueba\t")
+    salida.write("Punto %d\t"% cont)
+    salida.write("%s\t" % "21,25")
+    salida.write("%s\t" % "-10,-25")
+    salida.write("autobus.gif\n")
 salida.close()
+
+mapa = etree.SubElement(form,"input", attrib={"type":"submit","value":"Mapa"})
 
 print "Content-Type: text/html"     # HTML is following
 print                               # blank line, end of headers
 print etree.tostring(arbol2,pretty_print=True)
-print "x: " + "%s" % x
-print "y: " + "%s" % y
-
-#x=-92.199881
-#y=38.56694
-#p1 = pyproj.Proj(init='epsg:26915')
-#p2 = pyproj.Proj(init='epsg:26715')
-#x1, y1 = p1(x,y)
-#longitud, latitud = pyproj.transform(p1,p2,x1,y1)
