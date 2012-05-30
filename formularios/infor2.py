@@ -54,8 +54,6 @@ metros2 = arbol.xpath("/soap:Envelope/soap:Body/ns:GetPasoParadaResponse/ns:GetP
 
 xs= arbol3.xpath("/soap:Envelope/soap:Body/ns:GetTopoSublineaResponse/ns:GetTopoSublineaResult/ns:InfoCoord/ns:x/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
 ys = arbol3.xpath("/soap:Envelope/soap:Body/ns:GetTopoSublineaResponse/ns:GetTopoSublineaResult/ns:InfoCoord/ns:y/text()",namespaces={'soap':'http://schemas.xmlsoap.org/soap/envelope/','ns':'http://tempuri.org/'})
-#xs = xs[0]
-#ys = ys[0]
 
 # Tranformamos las X,Y a float y las guardamos en una lista
 
@@ -66,6 +64,9 @@ yss=[]
 for y in ys:
     yss.append(float(y))
 
+#minutos = minutos[0]
+#metros = metros[0]
+
 html = etree.Element("html",attrib={"xmlns":"http://www.w3.org/1999/xhtml"})
 arbol2 = etree.ElementTree(html)
 head = etree.SubElement(html,"head")
@@ -74,11 +75,11 @@ title.text = "Formulario Tussam"
 meta = etree.SubElement(head,"meta", attrib={"http-equiv":"Content-Type", "content":"text/html", "charset":"utf-8"})
 body = etree.SubElement(html,"body")
 p = etree.SubElement(body,"h1").text = "Primer Autobus"
-p = etree.SubElement(body,"p").text = "minutos: " + "%s" % minutos
-p = etree.SubElement(body,"p").text = "distancia: " + "%s" % metros
+p = etree.SubElement(body,"p").text = "Tiempo: " + "%s" % minutos[0] + " minutos."
+p = etree.SubElement(body,"p").text = "Distancia: " + "%s" % metros[0] + " metros."
 p = etree.SubElement(body,"h1").text = "Segundo Autobus"
-p = etree.SubElement(body,"p").text = "minutos: " + "%s" % minutos2
-p = etree.SubElement(body,"p").text = "distancia: " + "%s" % metros2
+p = etree.SubElement(body,"p").text = "Tiempo: " + "%s" % minutos2[0] + " minutos."
+p = etree.SubElement(body,"p").text = "Distancia: " + "%s" % metros2[0] + " metros."
 form = etree.SubElement(body,"form", attrib={"action":"maparadas.html", "method":"post"})
 
 # Definimos la zona utm para sevilla y las transformamos a latitud y longitud
@@ -108,3 +109,4 @@ mapa = etree.SubElement(form,"input", attrib={"type":"submit","value":"Mapa"})
 print "Content-Type: text/html"     # HTML is following
 print                               # blank line, end of headers
 print etree.tostring(arbol2,pretty_print=True)
+
