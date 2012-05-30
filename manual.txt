@@ -66,3 +66,28 @@ client.set_options(retxml=True)
    desde el navegador accedeis con la siguiente direccion:
 
 	http://localhost/cgi-bin/fichero.py
+
+################################################################
+####### Para ejecutar en CGI los formaularios con el mapa ######
+################################################################
+
+1) copiamos Todos los ficheros que se encuentran en formularios/ a /usr/lib/cgi-bin/
+2) modificamos los propietarios y permisos de los fichero de /usr/lib/cgi-bin/:
+
+#chown -R root:root *
+#chmod -R 775 *
+#chown www-data:www-data paradas.txt
+
+3) Editamos el fichero /etc/apache2/sites-available/default y añadimos la siguiente linea, para que CGI pueda ejecutar HTML TXT y GIF:
+
+        <Directory "/usr/lib/cgi-bin/">
+                AllowOverride None
+                Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch -Includes
+                Order allow,deny
+                Allow from all
+##################################################################
+                AddHandler default-handler .html .txt .gif
+###################################################################
+        </Directory>
+
+4) ejecutamos desde el navegador http://localhost/cgi-bin/formulario.py

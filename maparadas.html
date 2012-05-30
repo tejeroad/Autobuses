@@ -1,32 +1,4 @@
 <html>
-<<<<<<< HEAD
- <body>
- <div id="mapdiv"></div>
- <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
- <script>
-   map = new OpenLayers.Map("mapdiv");
-   map.addLayer(new OpenLayers.Layer.OSM());
-=======
-  <body>
-  <div id="mapdiv"></div>
-  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-  <script>
-    map = new OpenLayers.Map("mapdiv");
-    map.addLayer(new OpenLayers.Layer.OSM());
- 
-    var publicos = new OpenLayers.Layer.Text( "Paradas",
-                    { location:"paradas",
-                      projection: map.displayProjection
-                    });
-    map.addLayer(publicos);
->>>>>>> d79642659880b1483c95c30a98bc566e3a76ee38
-
-   var publicos = new OpenLayers.Layer.Text( "Paradas",
-                   { location:"paradas",
-                     projection: map.displayProjection
-                   });
-   map.addLayer(publicos);
-<html>
  <body>
  <div id="mapdiv"></div>
  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
@@ -35,7 +7,7 @@
    map.addLayer(new OpenLayers.Layer.OSM());
 
    var publicos = new OpenLayers.Layer.Text( "Paradas",
-                   { location:"paradas",
+                   { location:"/usr/lib/cgi-bin/paradas",
                      projection: map.displayProjection
                    });
    map.addLayer(publicos);
