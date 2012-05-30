@@ -7,18 +7,18 @@
    map.addLayer(new OpenLayers.Layer.OSM());
 
    var publicos = new OpenLayers.Layer.Text( "Paradas",
-                   { location:"/usr/lib/cgi-bin/paradas",
+                   { location:"paradas.txt",
                      projection: map.displayProjection
                    });
    map.addLayer(publicos);
 
  //Set start centrepoint and zoom
-   var lonLat = new OpenLayers.LonLat( -5.994075080393779, 37.40528643935892 )
+   var lonLat = new OpenLayers.LonLat( -5.989265441894531, 37.38325280195101 )
          .transform(
            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
            map.getProjectionObject() // to Spherical Mercator Projection
          );
-   var zoom=14;
+   var zoom=13;
    map.setCenter (lonLat, zoom);
  </script>
  </body>
