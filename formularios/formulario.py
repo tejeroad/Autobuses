@@ -33,6 +33,7 @@ lineas_value = arbol.xpath("/soap:Envelope/soap:Body/ns:GetLineasResponse/ns:Get
 html = etree.Element("html",attrib={"xmlns":"http://www.w3.org/1999/xhtml"})
 arbol2 = etree.ElementTree(html)
 head = etree.SubElement(html,"head")
+link = etree.SubElement(head,"link",attrib={"rel":"stylesheet","type":"text/css","href":"style.css"})
 title = etree.SubElement(head,"title")
 title.text = "Formulario Tussam"
 meta = etree.SubElement(head,"meta", attrib={"http-equiv":"Content-Type","content":"text/html","charset":"utf-8"})

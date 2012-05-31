@@ -96,9 +96,9 @@ for cont in xrange(len(valorx)):
     salida.write("%s\t" % valorx[cont])
     salida.write("Prueba\t")
     salida.write("Punto %d\t"% cont)
-    salida.write("%s\t" % "21,25")
+    salida.write("%s\t" % "10,15")
     salida.write("%s\t" % "-10,-25")
-    salida.write("autobus.gif\n")
+    salida.write("punto.gif\n")
 salida.close()
 
 mapa = etree.SubElement(form,"input", attrib={"type":"submit","value":"Mapa"})
