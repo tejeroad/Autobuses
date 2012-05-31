@@ -94,7 +94,7 @@ salida.write("lat\tlon\ttitle\tdescription\ticonSize\tincoOffset\ticon\n")
 for cont in xrange(len(valorx)):
     salida.write("%s\t" % valory[cont]) 
     salida.write("%s\t" % valorx[cont])
-    salida.write("Prueba\t")
+    salida.write("Linea\t")
     salida.write("Punto %d\t"% cont)
     salida.write("%s\t" % "10,15")
     salida.write("%s\t" % "-10,-25")
